@@ -5,7 +5,9 @@ export const handlers = [
         return HttpResponse.json([
             { name: "온라인", id: 0 },
             { name: "오프라인", id: 1 }
-        ]);
+        ], {
+            status: 200
+        });
     }),
     http.get('/dates', ({ request }) => {
 

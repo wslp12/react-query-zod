@@ -19,6 +19,14 @@ export const Route = createRootRoute({
         <Link to="/terms-v3" className="border p-1 border-green-300">
           이용약관(v3-with-api)
         </Link>
+        &nbsp;&nbsp;
+        <Link to="/terms-v4" className="border p-1 border-green-300">
+          이용약관(v4-with-validation)
+        </Link>
+        &nbsp;&nbsp;
+        <Link to="/terms-v5" className="border p-1 border-green-300">
+          이용약관(v5-with-validation-globalState)
+        </Link>
       </div>
       <br />
       <hr />

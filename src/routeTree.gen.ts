@@ -16,12 +16,24 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const TermsV5LazyImport = createFileRoute('/terms-v5')()
+const TermsV4LazyImport = createFileRoute('/terms-v4')()
 const TermsV3LazyImport = createFileRoute('/terms-v3')()
 const TermsV2LazyImport = createFileRoute('/terms-v2')()
 const TermsLazyImport = createFileRoute('/terms')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const TermsV5LazyRoute = TermsV5LazyImport.update({
+  path: '/terms-v5',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/terms-v5.lazy').then((d) => d.Route))
+
+const TermsV4LazyRoute = TermsV4LazyImport.update({
+  path: '/terms-v4',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/terms-v4.lazy').then((d) => d.Route))
 
 const TermsV3LazyRoute = TermsV3LazyImport.update({
   path: '/terms-v3',
@@ -75,6 +87,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsV3LazyImport
       parentRoute: typeof rootRoute
     }
+    '/terms-v4': {
+      id: '/terms-v4'
+      path: '/terms-v4'
+      fullPath: '/terms-v4'
+      preLoaderRoute: typeof TermsV4LazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/terms-v5': {
+      id: '/terms-v5'
+      path: '/terms-v5'
+      fullPath: '/terms-v5'
+      preLoaderRoute: typeof TermsV5LazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -85,6 +111,8 @@ export const routeTree = rootRoute.addChildren({
   TermsLazyRoute,
   TermsV2LazyRoute,
   TermsV3LazyRoute,
+  TermsV4LazyRoute,
+  TermsV5LazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -98,7 +126,9 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/terms",
         "/terms-v2",
-        "/terms-v3"
+        "/terms-v3",
+        "/terms-v4",
+        "/terms-v5"
       ]
     },
     "/": {
@@ -112,6 +142,12 @@ export const routeTree = rootRoute.addChildren({
     },
     "/terms-v3": {
       "filePath": "terms-v3.lazy.tsx"
+    },
+    "/terms-v4": {
+      "filePath": "terms-v4.lazy.tsx"
+    },
+    "/terms-v5": {
+      "filePath": "terms-v5.lazy.tsx"
     }
   }
 }
